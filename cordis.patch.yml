@@ -1,0 +1,5 @@
+# 让 Loader 以独立插件行装载本包（与官方 dsh-web-app patch 的行同构）。
+# 不改任何官方行：只插入一行，卸载即恢复。
+- insert:
+    - id: draft-attachments
+      name: dsh-draft-attachments
