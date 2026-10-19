@@ -1,6 +1,6 @@
 {
   "name": "dsh-draft-attachments",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "DeepSeek Harness 插件：把输入框的草稿图片/文件像文字草稿一样持久化。切换页面、重启应用后回到会话，未发送的附件自动恢复。基于 IndexedDB，走官方 createDrafts/addAttachments 通道。",
   "type": "module",
   "main": "lib/index.js",

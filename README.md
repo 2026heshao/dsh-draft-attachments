@@ -1,8 +1,10 @@
 # dsh-draft-attachments
 
-DeepSeek Harness（DSH）插件：**把输入框的草稿图片/文件像文字草稿一样持久化**。
+DeepSeek Harness（DSH）插件：**把输入框的草稿图片/文件像文字草稿一样持久化**。桌面端与 Web 端通用（插件 UI 运行在两端同源的浏览器渲染层，行为一致）。
 
-DSH 桌面端的已知行为：在 A 会话输入框上传了几张图片，中途点到其他页面再切回来，输入的文字还在，但上传的图片消失了。本插件修复这个问题——切换页面、切换会话、甚至重启 DSH 之后回到该会话，未发送的附件会自动恢复到输入框，缩略图原样重现。
+DSH 的已知行为：在 A 会话输入框上传了几张图片，中途点到其他页面再切回来，输入的文字还在，但上传的图片消失了。本插件修复这个问题——切换页面、切换会话、甚至重启 DSH 之后回到该会话，未发送的附件会自动恢复到输入框，缩略图原样重现。桌面端与 Web 端表现相同。
+
+> **兼容性**：已在 DeepSeek Harness 44.7.0（宿主内置 `@deepseek-ai/dsh-typert-protocol@0.2.1-rc.2` / cordis 4.0.5）上全量测试通过；声明的 peer 范围 `>=0.1.5-rc.1` 继续覆盖，本版本无需代码改动。
 
 ## 原理
 
@@ -23,9 +25,11 @@ DSH 桌面端的已知行为：在 A 会话输入框上传了几张图片，中�
 - 附件恢复后走官方重新上传/编码流程（图片重建 objectURL 预览；文件类草稿会重新进入后台上传）。
 - 恢复时机是「输入区挂载且当前没有附件」；若在提交锁定相位（adjudicating/submitting）挂载，回填会被拒绝并释放草稿，等下次挂载再试。
 
-## 安装（本地 profile）
+## 安装
 
-1. 在 `~/.dsh/profiles/desktop/package.json` 的 `dependencies` 加入：
+装进哪个 profile，就在哪个端生效：`web` profile = 浏览器/网页版，`desktop` profile = 桌面应用（两处都装则两端都有）。
+
+1. 在 `~/.dsh/profiles/<profile>/package.json`（桌面端为 `~/.dsh/profiles/desktop/package.json`）的 `dependencies` 加入：
    ```json
    "dsh-draft-attachments": "file:D:/桌面/AI Port/DSH plugins/dsh-draft-attachments"
    ```
